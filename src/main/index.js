@@ -1,4 +1,4 @@
-import {BrowserWindow, Menu, app, dialog, ipcMain, shell, systemPreferences} from 'electron';
+import {BrowserWindow, Menu, app, dialog, ipcMain, shell, systemPreferences, globalShortcut} from 'electron';
 import fs from 'fs-extra';
 import path from 'path';
 import {URL} from 'url';
@@ -204,7 +204,10 @@ const createWindow = ({search = null, url = 'index.html', ...browserWindowOption
     window.once('ready-to-show', () => {
         webContents.send('ready-to-show');
     });
-
+    globalShortcut.register('CommandOrControl+Alt+D', () => {
+        // eslint-disable-next-line no-use-before-define
+        window.webContents.openDevTools();
+    });
     return window;
 };
 

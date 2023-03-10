@@ -10,11 +10,13 @@
     "start": "mkdirp ./dist && electron-webpack dev --bail --display-error-details --env.minify=false --no-progress",
     "compile": "mkdirp ./dist && electron-webpack --bail --display-error-details --env.minify=false --no-progress",
     "fetch": "rimraf ./static/assets/ && mkdirp ./static/assets/ && node ./scripts/fetchMediaLibraryAssets.js",
+    "fetch-add": "node ./scripts/fetchMediaLibraryAssets.js",
     "build": "npm run build:dev",
     "build:dev": "npm run compile && npm run doBuild -- --mode=dev",
     "build:dir": "npm run compile && npm run doBuild -- --mode=dir",
     "build:dist": "npm run compile && npm run doBuild -- --mode=dist",
     "doBuild": "node ./scripts/electron-builder-wrapper.js",
+    "dodist": "npm run compile && npm run doBuild -- --mode=dist",
     "dist": "npm run clean && npm run compile && npm run fetch && npm run doBuild -- --mode=dist",
     "distDev": "npm run clean && npm run compile && npm run fetch && npm run doBuild -- --mode=dev",
     "test": "npm run test:lint",
@@ -25,6 +27,8 @@
     "url": "git+ssh://git@github.com/LLK/scratch-desktop.git"
   },
   "dependencies": {
+    "css-loader": "^1.0.1",
+    "scratch-gui": "git+https://github.com/Knighterrant-xigua/scratch-gui.git",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
@@ -63,7 +67,6 @@
     "react-redux": "5.0.7",
     "redux": "3.7.2",
     "rimraf": "^3.0.2",
-    "scratch-gui": "github:LLK/scratch-gui#scratch-desktop-v3.29.0",
     "uuid": "^8.0.0",
     "webpack": "^4.43.0"
   },

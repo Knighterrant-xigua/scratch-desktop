@@ -6,8 +6,9 @@ const util = require('util');
 const async = require('async');
 
 const libraries = require('./lib/libraries');
-
-const ASSET_HOST = 'cdn.assets.scratch.mit.edu';
+// cdn.assets.scratch.mit.edu
+// const ASSET_HOST = 'filedev.midevip.com';
+const ASSET_HOST = 'f12.midevip.com';
 const NUM_SIMULTANEOUS_DOWNLOADS = 5;
 const OUT_PATH = path.resolve('static', 'assets');
 
@@ -45,14 +46,14 @@ const collectAssets = function (dest) {
     collectSimple(libraries.backdrops, dest, 'Backdrop');
     collectSimple(libraries.costumes, dest, 'Costume');
     collectSimple(libraries.sounds, dest, 'Sound');
-    libraries.sprites.forEach(sprite => {
-        if (sprite.costumes) {
-            collectSimple(sprite.costumes, dest, `Costume for sprite ${sprite.name}`);
-        }
-        if (sprite.sounds) {
-            collectSimple(sprite.sounds, dest, `Sound for sprite ${sprite.name}`);
-        }
-    });
+    // libraries.sprites.forEach(sprite => {
+    //     if (sprite.costumes) {
+    //         collectSimple(sprite.costumes, dest, `Costume for sprite ${sprite.name}`);
+    //     }
+    //     if (sprite.sounds) {
+    //         collectSimple(sprite.sounds, dest, `Sound for sprite ${sprite.name}`);
+    //     }
+    // });
     return dest;
 };
 
@@ -62,7 +63,7 @@ const fetchAsset = function (md5, callback) {
     const myAgent = connectionPool.pop() || new https.Agent({keepAlive: true});
     const getOptions = {
         host: ASSET_HOST,
-        path: `/internalapi/asset/${md5}/get/`,
+        path: `/scratch/${md5}`,
         agent: myAgent
     };
     const urlHuman = `//${getOptions.host}${getOptions.path}`;
